@@ -6,5 +6,5 @@ export const randomNumber = () => {
 }
 
 export const randomName = () => {
-    return faker.name.firstName();
+    return faker.name.firstName() + " " + faker.name.lastName() + " " + faker.name.suffix();
 }
