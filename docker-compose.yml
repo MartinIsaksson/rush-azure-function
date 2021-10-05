@@ -13,7 +13,7 @@ services:
     build:
       context: .
       dockerfile: functions/Dockerfile
-    ports: 
+    ports:
       - 8080:80
     environment:
       # Copy .env variables through to container

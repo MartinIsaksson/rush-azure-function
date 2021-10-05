@@ -1,6 +1,8 @@
 # To enable ssh & remote debugging on app service change the base image to the one below
 # FROM mcr.microsoft.com/azure-functions/node:3.0-appservice
-FROM mcr.microsoft.com/azure-functions/node:3.0-node14
+FROM mcr.microsoft.com/azure-functions/node:3.0-node14-slim
+##FROM mcr.microsoft.com/azure-functions/node:3.0-node14-core-tools as base 
+# THIS CAN BE USED IF WE NEED TO CALL e.g. "FUNC HOST START" or Npm start
 ENV AzureWebJobsScriptRoot=$path \
     AzureFunctionsJobHost__Logging__Console__IsEnabled=true
 # FROM node:14
@@ -20,7 +22,4 @@ RUN  cd $path && \
 RUN  cd $path && \ 
     node $rush build
 
-RUN cd $path/functions && \
-    npm start
-#     npm run build
-#    npm install && \
+WORKDIR $path/functions
