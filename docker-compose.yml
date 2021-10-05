@@ -1,9 +1,25 @@
 #docker-compose.yml
 
-version: '3.7'
+version: "3.7"
 
 services:
-  functions: 
+  local.storage.emulator:
+    image: "mcr.microsoft.com/azure-storage/azurite:latest"
+    container_name: local.storage.emulator
+    ports:
+      - 10000:10000
+      - 10001:10001
+  functions:
     build:
       context: .
       dockerfile: functions/Dockerfile
+    ports: 
+      - 8080:80
+    environment:
+      # Copy .env variables through to container
+      - AzureWebJobsStorage
+      - BlobContainerName
+      - BlobOutputContainerName
+      - QueueName
+    depends_on:
+      - local.storage.emulator
