@@ -12,18 +12,3 @@
  #### docker tag <IMAGE> <REPOSITORYNAME>.azurecr.io/<FOLDER>/<IMAGE>:<VERSION>
  #### docker push <REPOSITORYNAME>.azurecr.io/<FOLDER>/<IMAGE>
  #### az functionapp create --name <FUNCTIONNAME> --storage-account <STORAGEACCOUNT> --resource-group <RESOURCEGROUP> --plan <SERVICEPLANNAME> --deployment-container-image-name <REPOSITORYNAME>.azurecr.io/<FOLDER>/<IMAGE>:<VERSION> --functions-version 3
- 
-###CREATE A App Service plan
-    - az functionapp plan create --resource-group AzureFunctionsContainers-rg --name functionAppServicePlan --location WestEurope --number-of-workers 1 --sku EP1 --is-linux
-### CREATA A PREMIUM PLAN
-    - az functionapp plan create --resource-group AzureFunctionsContainers-rg --name nonPremiumPlan --location WestEurope --number-of-workers 1 --sku P1V2 --is-linux
-
-az storage account show-connection-string --resource-group AzureFunctionsContainers-rg --name funcstorageaccounttest --query connectionString --output tsv
-
-az functionapp config appsettings set --name dt-consid-func --resource-group AzureFunctionsContainers-rg --settings AzureWebJobsStorage=DefaultEndpointsProtocol=https;EndpointSuffix=core.windows.net;AccountName=funcstorageaccounttest;AccountKey=80/YzyLIsejKtq3CLfHQHkngtknUmdq+iYxn+ekfANyBw+eAlni5zQxTrwkXsjWJYUerg2i0V9cXpVab8HMkUA==
-
-az functionapp deployment container config --enable-cd --query CI_CD_URL --output tsv --name dt-consid-func --resource-group AzureFunctionsContainers-rg
-
-az functionapp config container set --docker-custom-image-name kubernetesacrconsid.azurecr.io/digitaltwin/functions:v1.0.0 --docker-registry-server-password lDYxXBf7zBeBUtaBIdsnQO5Fv6=SrDD2 --docker-registry-server-url https://kubernetesacrconsid .azurecr.io --docker-registry-server-user kubernetesacrconsid --name dt-consid-func --resource-group AzureFunctionsContainers-rg
-
-az functionapp deployment container show-cd-url --name dt-consid-fun --resource-group AzureFunctionsContainers-rg
