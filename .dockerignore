@@ -2,3 +2,4 @@ common/temp
 **/node_modules
 **.vscode
 **.rush
+common/deploy
